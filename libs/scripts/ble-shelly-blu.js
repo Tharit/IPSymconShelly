@@ -31,6 +31,7 @@ BTH[0x0c] = { n: "Voltage", t: uint16, f: 0.001 };
 BTH[0x10] = { n: "Power", t: uint8 };
 BTH[0x1a] = { n: "Door", t: uint8 };
 BTH[0x20] = { n: "Moisture", t: uint8 };
+BTH[0x21] = { n: "Motion", t: uint8 };
 BTH[0x14] = { n: "Moisture", t: uint16, f: 0.01 };
 BTH[0x2f] = { n: "Moisture", t: uint8 };
 BTH[0x2d] = { n: "Window", t: uint8 };
@@ -152,8 +153,8 @@ let BTHomeDecoder = {
     let _value;
     while (buffer.length > 0) {
       _bth = BTH[buffer.at(0)];
-      if (_bth === "undefined") {
-        console.log("BTH: unknown type");
+      if (typeof _bth === "undefined") {
+        console.log("BTH: unknown type '" + buffer.at(0) + "''");
         break;
       }
       buffer = buffer.slice(1);
