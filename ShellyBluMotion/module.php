@@ -1,6 +1,6 @@
 <?php
 
-class ShellyBluHT extends IPSModule
+class ShellyBluMotion extends IPSModule
 {
     public function Create()
     {
