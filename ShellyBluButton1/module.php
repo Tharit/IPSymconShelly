@@ -41,8 +41,8 @@ class ShellyBluButton1 extends IPSModule
         if($lastPID == $Payload['pid']) return;
         $this->SetBuffer('pid', serialize($Payload['pid']));
 
-        if(isset($Payload['Switch'])) {
-            $this->SetValue('Switch', $Payload['Switch']);
+        if(isset($Payload['Button'])) {
+            $this->SetValue('Button', $Payload['Button']);
         }
         if(isset($Payload['Battery'])) {
             $this->SetValue('Battery', $Payload['Battery']);
