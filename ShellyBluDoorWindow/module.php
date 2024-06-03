@@ -47,7 +47,7 @@ class ShellyBluDoorWindow extends IPSModule
             $this->SetValue('State', 2);
         } else if(isset($Payload['Window']) && $Payload['Window'] == 1) {
             $this->SetValue('State', 1);
-        } else {
+        } else if(isset($Payload['Window'])) {
             $this->SetValue('State', 0);
         }
         $this->SetValue('Battery', $Payload['Battery']);
