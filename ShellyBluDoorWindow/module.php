@@ -42,15 +42,26 @@ class ShellyBluDoorWindow extends IPSModule
         if(!isset($Payload['pid']) || $lastPID == $Payload['pid']) return;
         $this->SetBuffer('pid', serialize($Payload['pid']));
 
+        $newState = null;
         if(isset($Payload['Rotation']) && 
             abs($Payload['Rotation']) > abs($this->ReadPropertyFloat('RotationThreshold'))) {
-            $this->SetValue('State', 2);
+            $newState = 2;
         } else if(isset($Payload['Window']) && $Payload['Window'] == 1) {
-            $this->SetValue('State', 1);
+            $newState = 1;
         } else if(isset($Payload['Window'])) {
-            $this->SetValue('State', 0);
+            $newState = 0;
         }
-        $this->SetValue('Battery', $Payload['Battery']);
+        // workaround for firmware bug (v1.0.16): if devices restarts then PID=2 will have Rotation=0, even if the device is actually rotated..
+        // if this case is detected, skip the update
+        if($Payload['pid'] == 2 && $Payload['Rotation'] == 0 && $this->GetValue('State') == 2) {
+            $newState = null;
+        }
+        if($newState !== null) {
+            $this->SetValue('State', $newState);
+        }
+        if(isset($Payload['Battery'])) {
+            $this->SetValue('Battery', $Payload['Battery']);
+        }
     }
 
 }
