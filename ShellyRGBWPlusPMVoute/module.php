@@ -1,6 +1,6 @@
 <?php
 
-class ShellyRGBW2Voute extends IPSModule
+class ShellyRGBWPlusPMVoute extends IPSModule
 {
     public function Create()
     {
