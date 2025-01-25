@@ -14,6 +14,9 @@ class ShellyRGBW2Voute extends IPSModule
 
         // variables
         $this->RegisterVariableBoolean("Connected", "Connected");
+
+        $this->RegisterVariableFloat("PowerTotal", "PowerTotal", '~Electricity');
+        $this->RegisterVariableFloat("Power", "Power", '~Watt.3680');
     }
 
     public function ApplyChanges()
@@ -36,6 +39,10 @@ class ShellyRGBW2Voute extends IPSModule
 
         if (fnmatch('*/online', $Buffer->Topic)) {
             $this->SetValue("Connected", $Buffer->Payload === 'true' ? true : false);
+        } else if (fnmatch('*/color/0/energy', $Buffer->Topic)) {
+            $this->SetValue('PowerTotal', intval($Buffer->Payload)/1000);
+        } else if (fnmatch('*/color/0/power', $Buffer->Topic)) {
+            $this->SetValue('Power', floatval($Buffer->Payload));
         }
     }
 
