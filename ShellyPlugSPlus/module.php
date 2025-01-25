@@ -67,7 +67,7 @@ class ShellyPlugSPlus extends IPSModule
                                 $this->SetValue('Power', $input['apower']);
                             }
                             if (array_key_exists('aenergy', $input)) {
-                                $total = $input['total'] / 1000;
+                                $total = $input['aenergy']['total'] / 1000;
     
                                 $this->SetValue("PowerTotal", $total);
                             }
