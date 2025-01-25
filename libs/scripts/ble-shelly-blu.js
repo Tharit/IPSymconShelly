@@ -35,6 +35,7 @@ BTH[0x21] = { n: "Motion", t: uint8 };
 BTH[0x14] = { n: "Moisture", t: uint16, f: 0.01 };
 BTH[0x2f] = { n: "Moisture", t: uint8 };
 BTH[0x2d] = { n: "Window", t: uint8 };
+BTH[0x2e] = { n: "Humidity", t: uint8, u: "%", f: 1 };
 BTH[0x3a] = { n: "Button", t: uint8 };
 BTH[0x3f] = { n: "Rotation", t: int16, f: 0.1 };
 BTH[0x45] = { n: "Temperature", t: int16, f: 0.1 };
