@@ -70,7 +70,7 @@ class Shelly25 extends IPSModule
         if (fnmatch('*/relay/[01]/energy', $Buffer->Topic)) {
             $relay = $this->getChannelRelay($Buffer->Topic, -1);
             $value = $Buffer->Payload;
-            $this->SetValue("Energy" . ($relay+1), inval($value) / 1000);
+            $this->SetValue("Energy" . ($relay+1), intval($value) / 1000);
         }
         if (fnmatch('*/relay/[01]/power', $Buffer->Topic)) {
             $relay = $this->getChannelRelay($Buffer->Topic, -1);
