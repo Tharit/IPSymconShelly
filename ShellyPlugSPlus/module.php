@@ -25,6 +25,7 @@ class ShellyPlugSPlus extends IPSModule
         $this->RegisterVariableBoolean("Connected", "Connected");
         $this->RegisterVariableBoolean("State1", "State1");
         $this->RegisterVariableBoolean("State1", "State1");
+        $this->RegisterVariableFloat("PowerTotal", "PowerTotal", '~Electricity');
         $this->RegisterVariableFloat("Power", "Power", '~Watt.3680');
 
         $this->EnableAction("State1");
@@ -64,6 +65,11 @@ class ShellyPlugSPlus extends IPSModule
                             }
                             if (array_key_exists('apower', $input)) {
                                 $this->SetValue('Power', $input['apower']);
+                            }
+                            if (array_key_exists('aenergy', $input)) {
+                                $total = $input['total'] / 1000;
+    
+                                $this->SetValue("PowerTotal", $total);
                             }
                         }
                     }
