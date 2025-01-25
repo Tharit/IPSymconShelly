@@ -2,10 +2,10 @@
 
 class Shelly25 extends IPSModule
 {
-    protected function getChannelRelay(string $topic)
+    protected function getChannelRelay(string $topic, $offset = 0)
     {
         $ShellyTopic = explode('/', $topic);
-        $LastKey = count($ShellyTopic) - 1;
+        $LastKey = count($ShellyTopic) - 1 + $offset;
         $relay = $ShellyTopic[$LastKey];
         return $relay;
     }
@@ -68,12 +68,12 @@ class Shelly25 extends IPSModule
             $this->SetValue("State" . ($relay+1), $value == 'on' ? true : false);
         }
         if (fnmatch('*/relay/[01]/energy', $Buffer->Topic)) {
-            $relay = $this->getChannelRelay($Buffer->Topic);
+            $relay = $this->getChannelRelay($Buffer->Topic, -1);
             $value = $Buffer->Payload;
             $this->SetValue("Energy" . ($relay+1), inval($value) / 1000);
         }
         if (fnmatch('*/relay/[01]/power', $Buffer->Topic)) {
-            $relay = $this->getChannelRelay($Buffer->Topic);
+            $relay = $this->getChannelRelay($Buffer->Topic, -1);
             $value = $Buffer->Payload;
             $this->SetValue("Power" . ($relay+1), floatval($value));
         }
