@@ -43,13 +43,13 @@ class ShellyPMMiniGen3 extends IPSModule
                 $Payload = json_decode($Payload, true);
                 if (array_key_exists('params', $Payload)) {
                     if (array_key_exists('pm1:0', $Payload['params'])) {
-                        if (array_key_exists('aenergy', $Payload['params'])) {
-                            $total = $Payload['params']['aenergy']['total'] / 1000;
+                        if (array_key_exists('aenergy', $Payload['params']['pm1:0'])) {
+                            $total = $Payload['params']['pm1:0']['aenergy']['total'] / 1000;
 
                             $this->SetValue("PowerTotal", $total);
                         }
-                        if (array_key_exists('apower', $Payload['params'])) {
-                            $this->SetValue('Power', $Payload['params']['apower']);
+                        if (array_key_exists('apower', $Payload['params']['pm1:0'])) {
+                            $this->SetValue('Power', $Payload['params']['pm1:0']['apower']);
                         }
                     }
                 }
