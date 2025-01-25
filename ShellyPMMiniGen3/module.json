@@ -1,0 +1,14 @@
+{
+	"id": "{565053E7-3B8C-4881-BC4C-EDAE2E3551EF}",
+	"name": "Shelly PM Mini Gen3",
+	"type": 3,
+	"vendor": "Shelly",
+	"aliases":
+	[
+	],
+	"parentRequirements": ["{043EA491-0325-4ADD-8FC2-A30C8EEB4D3F}"],
+	"childRequirements": [],
+	"implemented": ["{7F7632D9-FA40-4F38-8DEA-C83CD4325A32}"],
+	"prefix": "SHL",
+    "url": "https://github.com/tharit/IPSymconShelly"
+}
