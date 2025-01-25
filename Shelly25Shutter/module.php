@@ -18,6 +18,9 @@ class Shelly25Shutter extends IPSModule
         $this->EnableAction("Position");
         $this->RegisterVariableInteger("Roller", "Roller", '~ShutterMoveStop');
         $this->EnableAction("Roller");
+
+        $this->RegisterVariableFloat("Energy", "Energy", '~Electricity');
+        $this->RegisterVariableFloat("Power", "Power", '~Watt.3680');
     }
 
     public function ApplyChanges()
@@ -43,6 +46,12 @@ class Shelly25Shutter extends IPSModule
         }
         if (fnmatch('*/roller/0/pos*', $Buffer->Topic)) {
             $this->SetValue('Position', intval($Buffer->Payload));
+        }
+        if (fnmatch('*/roller/0/power', $Buffer->Topic)) {
+            $this->SetValue('Power', floatval($Buffer->Payload));
+        }
+        if (fnmatch('*/roller/0/energy', $Buffer->Topic)) {
+            $this->SetValue('Energy', intval($Buffer->Payload) / 1000);
         }
         if (fnmatch('*/roller/0', $Buffer->Topic)) {
             switch ($Buffer->Payload) {

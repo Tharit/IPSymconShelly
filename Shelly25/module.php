@@ -28,6 +28,12 @@ class Shelly25 extends IPSModule
         $this->EnableAction("State1");
         $this->RegisterVariableBoolean("State2", "State2", '~Switch');
         $this->EnableAction("State2");
+
+        $this->RegisterVariableFloat("Energy1", "Energy1", '~Electricity');
+        $this->RegisterVariableFloat("Power1", "Power1", '~Watt.3680');
+
+        $this->RegisterVariableFloat("Energy2", "Energy2", '~Electricity');
+        $this->RegisterVariableFloat("Power2", "Power2", '~Watt.3680');
     }
 
     public function ApplyChanges()
@@ -60,6 +66,16 @@ class Shelly25 extends IPSModule
             $relay = $this->getChannelRelay($Buffer->Topic);
             $value = $Buffer->Payload;
             $this->SetValue("State" . ($relay+1), $value == 'on' ? true : false);
+        }
+        if (fnmatch('*/relay/[01]/energy', $Buffer->Topic)) {
+            $relay = $this->getChannelRelay($Buffer->Topic);
+            $value = $Buffer->Payload;
+            $this->SetValue("Energy" . ($relay+1), inval($value) / 1000);
+        }
+        if (fnmatch('*/relay/[01]/power', $Buffer->Topic)) {
+            $relay = $this->getChannelRelay($Buffer->Topic);
+            $value = $Buffer->Payload;
+            $this->SetValue("Power" . ($relay+1), floatval($value));
         }
     }
 

@@ -14,7 +14,7 @@ class ShellyPMMiniGen3 extends IPSModule
 
         // variables
         $this->RegisterVariableBoolean("Connected", "Connected");
-        $this->RegisterVariableFloat("PowerTotal", "PowerTotal", '~Electricity');
+        $this->RegisterVariableFloat("Energy", "Energy", '~Electricity');
         $this->RegisterVariableFloat("Power", "Power", '~Watt.3680');
     }
 
@@ -46,7 +46,7 @@ class ShellyPMMiniGen3 extends IPSModule
                         if (array_key_exists('aenergy', $Payload['params']['pm1:0'])) {
                             $total = $Payload['params']['pm1:0']['aenergy']['total'] / 1000;
 
-                            $this->SetValue("PowerTotal", $total);
+                            $this->SetValue("Energy", $total);
                         }
                         if (array_key_exists('apower', $Payload['params']['pm1:0'])) {
                             $this->SetValue('Power', $Payload['params']['pm1:0']['apower']);
