@@ -48,8 +48,7 @@ class Shellyi4Plus extends IPSModule
         if (array_key_exists('Topic', $Buffer)) {
             if (fnmatch('*/online', $Buffer['Topic'])) {
                 $this->SetValue('Connected', $Payload);
-            }
-            if (fnmatch('*/events/rpc', $Buffer['Topic'])) {
+            } else if (fnmatch('*/events/rpc', $Buffer['Topic'])) {
                 if (array_key_exists('params', $Payload)) {
                     
                     for ($i = 0; $i <= 3; $i++) {

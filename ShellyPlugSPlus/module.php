@@ -51,8 +51,7 @@ class ShellyPlugSPlus extends IPSModule
         if (array_key_exists('Topic', $Buffer)) {
             if (fnmatch('*/online', $Buffer['Topic'])) {
                 $this->SetValue('Connected', $Payload == 'true');
-            }
-            if (fnmatch('*/events/rpc', $Buffer['Topic'])) {
+            } else if (fnmatch('*/events/rpc', $Buffer['Topic'])) {
                 $Payload = json_decode($Payload, true);
                 if (array_key_exists('params', $Payload)) {
                     
@@ -74,12 +73,10 @@ class ShellyPlugSPlus extends IPSModule
                         }
                     }
                 }
-            }
-            if (fnmatch('*/actors/*', $Buffer['Topic'])) {
+            } else if (fnmatch('*/actors/*', $Buffer['Topic'])) {
                 $parts = explode('/', $Buffer['Topic']);
                 $this->UpdateValue($parts[count($parts)-1], $Payload, false);
-            }
-            if (fnmatch('*/sensors/*', $Buffer['Topic'])) {
+            } else if (fnmatch('*/sensors/*', $Buffer['Topic'])) {
                 $parts = explode('/', $Buffer['Topic']);
                 $this->UpdateValue($parts[count($parts)-1], $Payload, true);
             }

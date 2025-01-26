@@ -38,16 +38,17 @@ class ShellyRGBWPlusPMVoute extends IPSModule
         if (array_key_exists('Topic', $Buffer)) {
             if (fnmatch('*/online', $Buffer['Topic'])) {
                 $this->SetValue('Connected', $Payload);
-            }
-            if (array_key_exists('params', $Payload)) {
-                if (array_key_exists('rgbw:0', $Payload['params'])) {
-                    if (array_key_exists('aenergy', $Payload['params']['rgbw:0'])) {
-                        $total = $Payload['params']['rgbw:0']['aenergy']['total'] / 1000;
+            } else if (fnmatch('*/events/rpc', $Buffer['Topic'])) {
+                if (array_key_exists('params', $Payload)) {
+                    if (array_key_exists('rgbw:0', $Payload['params'])) {
+                        if (array_key_exists('aenergy', $Payload['params']['rgbw:0'])) {
+                            $total = $Payload['params']['rgbw:0']['aenergy']['total'] / 1000;
 
-                        $this->SetValue("Energy", $total);
-                    }
-                    if (array_key_exists('apower', $Payload['params']['rgbw:0'])) {
-                        $this->SetValue('Power', $Payload['params']['rgbw:0']['apower']);
+                            $this->SetValue("Energy", $total);
+                        }
+                        if (array_key_exists('apower', $Payload['params']['rgbw:0'])) {
+                            $this->SetValue('Power', $Payload['params']['rgbw:0']['apower']);
+                        }
                     }
                 }
             }

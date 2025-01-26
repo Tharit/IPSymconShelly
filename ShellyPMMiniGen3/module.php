@@ -38,8 +38,7 @@ class ShellyPMMiniGen3 extends IPSModule
         if (array_key_exists('Topic', $Buffer)) {
             if (fnmatch('*/online', $Buffer['Topic'])) {
                 $this->SetValue('Connected', $Payload == 'true');
-            }
-            if (fnmatch('*/events/rpc', $Buffer['Topic'])) {
+            } else if (fnmatch('*/events/rpc', $Buffer['Topic'])) {
                 $Payload = json_decode($Payload, true);
                 if (array_key_exists('params', $Payload)) {
                     if (array_key_exists('pm1:0', $Payload['params'])) {
