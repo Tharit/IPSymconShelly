@@ -40,7 +40,7 @@ class ShellyRGBW2Voute extends IPSModule
         if (fnmatch('*/online', $Buffer->Topic)) {
             $this->SetValue("Connected", $Buffer->Payload === 'true' ? true : false);
         } else if (fnmatch('*/color/0/energy', $Buffer->Topic)) {
-            $this->SetValue('Energy', intval($Buffer->Payload)/1000);
+            $this->SetValue('Energy', intval($Buffer->Payload)/60000); // watt minute to kilowatt hour
         } else if (fnmatch('*/color/0/power', $Buffer->Topic)) {
             $this->SetValue('Power', floatval($Buffer->Payload));
         }

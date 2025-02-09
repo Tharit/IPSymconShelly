@@ -51,7 +51,7 @@ class Shelly25Shutter extends IPSModule
             $this->SetValue('Power', floatval($Buffer->Payload));
         }
         if (fnmatch('*/roller/0/energy', $Buffer->Topic)) {
-            $this->SetValue('Energy', intval($Buffer->Payload) / 1000);
+            $this->SetValue('Energy', intval($Buffer->Payload) / 60000); // watt minute to kilowatt hour
         }
         if (fnmatch('*/roller/0', $Buffer->Topic)) {
             switch ($Buffer->Payload) {

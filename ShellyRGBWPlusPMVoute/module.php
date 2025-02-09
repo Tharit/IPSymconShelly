@@ -42,7 +42,7 @@ class ShellyRGBWPlusPMVoute extends IPSModule
                 if (array_key_exists('params', $Payload)) {
                     if (array_key_exists('rgbw:0', $Payload['params'])) {
                         if (array_key_exists('aenergy', $Payload['params']['rgbw:0'])) {
-                            $total = $Payload['params']['rgbw:0']['aenergy']['total'] / 1000;
+                            $total = $Payload['params']['rgbw:0']['aenergy']['total'] / 1000; // watt hour to kilowatt hour
 
                             $this->SetValue("Energy", $total);
                         }
