@@ -18,6 +18,7 @@ class Shelly1PMMiniGen3 extends IPSModule
         $this->RegisterVariableBoolean("Input1", "Input1");
         $this->RegisterVariableFloat("Energy", "Energy", '~Electricity');
         $this->RegisterVariableFloat("Power", "Power", '~Watt.3680');
+        $this->EnableAction("State1");
     }
 
     public function ApplyChanges()
