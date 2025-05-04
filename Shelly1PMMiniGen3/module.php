@@ -70,5 +70,27 @@ class Shelly1PMMiniGen3 extends IPSModule
 
     public function RequestAction($Ident, $Value)
     {
+        $Server['DataID'] = '{043EA491-0325-4ADD-8FC2-A30C8EEB4D3F}';
+        $Server['PacketType'] = 3;
+        $Server['QualityOfService'] = 0;
+
+        if($Ident == 'State1') {
+            $Server['Retain'] = false;
+            
+            $Payload['id'] = 1;
+            $Payload['src'] = 'user_1';
+            $Payload['method'] = 'Switch.Set';
+            $Payload['params'] = ['id' => 0, 'on' => $Value];
+
+            $Server['Topic'] = $this->ReadPropertyString('Topic') . '/rpc';
+            $Server['Payload'] = json_encode($Payload);
+        } else {
+            $Server['Retain'] = $this->ReadPropertyBoolean('RetainActuatorValues');
+            $Server['Topic'] = $this->ReadPropertyString('Topic') . '/actors/' . $Ident . '/cmd';
+            $Server['Payload'] = json_encode($Value);
+        }
+
+        $ServerJSON = json_encode($Server, JSON_UNESCAPED_SLASHES);
+        $resultServer = $this->SendDataToParent($ServerJSON);
     }
 }
