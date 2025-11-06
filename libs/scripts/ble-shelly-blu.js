@@ -126,8 +126,14 @@ let BTHomeDecoder = {
         if (typeof _bth === "undefined") {
           console.log("Unsupported BTH v1 ident", ident);
         } else {
-          if (_bth.f) value *= _bth.f;
-          result[_bth.n] = value;
+          if(typeof result[_bth.n] !== "undefined") {
+            if(!Array.isArray(result[_bth.n])) {
+              result[_bth.n] = [result[_bth.n]];
+            }
+            result[_bth.n].push(value);
+          } else {
+            result[_bth.n] = value;
+          }
         }
       }
 
@@ -162,7 +168,16 @@ let BTHomeDecoder = {
       _value = this.getBufValue(_bth.t, buffer);
       if (_value === null) break;
       if (typeof _bth.f !== "undefined") _value = _value * _bth.f;
-      result[_bth.n] = _value;
+      
+      if(typeof result[_bth.n] !== "undefined") {
+        if(!Array.isArray(result[_bth.n])) {
+          result[_bth.n] = [result[_bth.n]];
+        }
+        result[_bth.n].push(_value);
+      } else {
+        result[_bth.n] = _value;
+      }
+
       buffer = buffer.slice(getByteSize(_bth.t));
     }
     return result;
