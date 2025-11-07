@@ -1,0 +1,14 @@
+{
+	"id": "{1225DF14-B0D4-4276-B549-BE0C5BCEEAC3}",
+	"name": "Shelly Blu RC Button4",
+	"type": 3,
+	"vendor": "Shelly",
+	"aliases":
+	[
+	],
+	"parentRequirements": ["{043EA491-0325-4ADD-8FC2-A30C8EEB4D3F}"],
+	"childRequirements": [],
+	"implemented": ["{7F7632D9-FA40-4F38-8DEA-C83CD4325A32}"],
+	"prefix": "SHL",
+    "url": "https://github.com/tharit/IPSymconShelly"
+}
