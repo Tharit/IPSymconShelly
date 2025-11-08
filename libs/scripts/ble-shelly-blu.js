@@ -126,6 +126,7 @@ let BTHomeDecoder = {
         if (typeof _bth === "undefined") {
           console.log("Unsupported BTH v1 ident", ident);
         } else {
+          if (_bth.f) value *= _bth.f;
           if(typeof result[_bth.n] !== "undefined") {
             if(!Array.isArray(result[_bth.n])) {
               result[_bth.n] = [result[_bth.n]];
