@@ -13,10 +13,10 @@ class ShellyBluRCButton4 extends IPSModule
         $this->RegisterPropertyString('Address', '');
 
         // variables
-        $this->RegisterVariableBoolean("Button0", "Button0", "~Switch");
-        $this->RegisterVariableBoolean("Button1", "Button1", "~Switch");
-        $this->RegisterVariableBoolean("Button2", "Button2", "~Switch");
-        $this->RegisterVariableBoolean("Button3", "Button3", "~Switch");
+        $this->RegisterVariableInteger("Button0", "Button0");
+        $this->RegisterVariableInteger("Button1", "Button1");
+        $this->RegisterVariableInteger("Button2", "Button2");
+        $this->RegisterVariableInteger("Button3", "Button3");
         $this->RegisterVariableInteger("Battery", "Battery", '~Battery.100');
 
         $this->SetBuffer('pid', serialize(-1));
