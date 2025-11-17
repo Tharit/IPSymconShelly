@@ -35,6 +35,7 @@ class ShellyBluButton1 extends IPSModule
 
         $Buffer = json_decode($JSONString, true);
         $Payload = json_decode($Buffer['Payload'], true);
+        if(!isset($Payload['pid'])) return;
         
         // deduplicate packages (e.g., if multiple gateways are receiving..)
         $lastPID = unserialize($this->GetBuffer('pid'));

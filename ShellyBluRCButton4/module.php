@@ -38,12 +38,13 @@ class ShellyBluRCButton4 extends IPSModule
 
         $Buffer = json_decode($JSONString, true);
         $Payload = json_decode($Buffer['Payload'], true);
-        
+        if(!isset($Payload['pid'])) return;
+
         // deduplicate packages (e.g., if multiple gateways are receiving..)
         // packet id must be larger/newer than previous.. but allow for rollover if difference is large enough (e.g., 30 = 5m, assuming 1 packet every ~10s)
         $lastPID = unserialize($this->GetBuffer('pid'));
         $pid = intval($Payload['pid']);
-        if($lastPID <= $pid && ($lastPID - $pid < 30)) return;
+        if($pid <= $lastPID && ($lastPID - $pid < 30)) return;
         $this->SetBuffer('pid', serialize($pid));
 
         if(isset($Payload['Button'])) {
