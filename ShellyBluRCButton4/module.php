@@ -19,7 +19,7 @@ class ShellyBluRCButton4 extends IPSModule
         $this->RegisterVariableInteger("Button3", "Button3");
         $this->RegisterVariableInteger("Battery", "Battery", '~Battery.100');
 
-        $this->SetBuffer('pid', serialize(-1));
+        $this->SetBuffer('pid', serialize(255));
     }
 
     public function ApplyChanges()
