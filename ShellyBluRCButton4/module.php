@@ -47,7 +47,7 @@ class ShellyBluRCButton4 extends IPSModule
         $ts = unserialize($this->GetBuffer('ts'));
         $pid = intval($Payload['pid']);
         // broadcast does not update the pid, so we need to check for time difference as well
-        if($ts - time() < 5 && $pid <= $lastPID && ($lastPID - $pid < 30)) return;
+        if(time() - $ts < 10 && $pid <= $lastPID && ($lastPID - $pid < 30)) return;
         $this->SetBuffer('pid', serialize($pid));
         $this->SetBuffer('ts', serialize(time()));
 
