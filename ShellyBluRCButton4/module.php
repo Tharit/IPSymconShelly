@@ -20,6 +20,7 @@ class ShellyBluRCButton4 extends IPSModule
         $this->RegisterVariableInteger("Battery", "Battery", '~Battery.100');
 
         $this->SetBuffer('pid', serialize(255));
+        $this->SetBuffer('ts', serialize(time()));
     }
 
     public function ApplyChanges()
@@ -43,9 +44,12 @@ class ShellyBluRCButton4 extends IPSModule
         // deduplicate packages (e.g., if multiple gateways are receiving..)
         // packet id must be larger/newer than previous.. but allow for rollover if difference is large enough (e.g., 30 = 5m, assuming 1 packet every ~10s)
         $lastPID = unserialize($this->GetBuffer('pid'));
+        $ts = unserialize($this->GetBuffer('ts'));
         $pid = intval($Payload['pid']);
-        if($pid <= $lastPID && ($lastPID - $pid < 30)) return;
+        // broadcast does not update the pid, so we need to check for time difference as well
+        if($ts - time() < 5 && $pid <= $lastPID && ($lastPID - $pid < 30)) return;
         $this->SetBuffer('pid', serialize($pid));
+        $this->SetBuffer('ts', serialize(time()));
 
         if(isset($Payload['Button'])) {
             $this->SetValue('Button0', $Payload['Button'][0]);
